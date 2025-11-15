@@ -1,5 +1,13 @@
+import Counter from '../components/Counter';
+
 const Page = () => {
-  return <div>Index Page</div>;
+  return (
+    <div>
+      <h1>Index Page</h1>
+
+      <Counter />
+    </div>
+  );
 };
 
 export default Page;
