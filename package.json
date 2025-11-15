@@ -9,6 +9,7 @@
     "dev": "react-router dev",
     "build": "react-router typegen && tsc -b && react-router build",
     "start": "react-router-serve ./dist/server/index.js",
+    "preview": "vite preview --outDir dist/client",
     "lint:fix": "eslint --fix",
     "prettier:write": "prettier --write"
   },
@@ -44,6 +45,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
-    "vite": "^7.2.2"
+    "vite": "^7.2.2",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
