@@ -10,6 +10,7 @@
     "build": "react-router typegen && tsc -b && react-router build",
     "start": "react-router-serve ./dist/server/index.js",
     "preview": "vite preview --outDir dist/client",
+    "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prettier:write": "prettier --write"
   },
@@ -20,7 +21,8 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.9.6",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -31,6 +33,7 @@
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-fsd-lint": "^1.0.10",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.4",

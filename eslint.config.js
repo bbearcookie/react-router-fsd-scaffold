@@ -14,6 +14,7 @@ import pluginPromise from 'eslint-plugin-promise';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 import configPrettier from 'eslint-config-prettier/flat';
+import fsdPlugin from 'eslint-plugin-fsd-lint';
 
 export default defineConfig(
   globalIgnores([
@@ -42,6 +43,10 @@ export default defineConfig(
       configPrettier,
       eslintPluginPrettierRecommended,
     ],
+
+    plugins: {
+      fsd: fsdPlugin,
+    },
 
     languageOptions: {
       parser: tseslint.parser,
@@ -157,6 +162,39 @@ export default defineConfig(
       'import/namespace': 'off', // TypeScript resolver와의 충돌로 인한 오류 방지
       'import/default': 'off', // TypeScript가 이미 default export를 검증하므로 비활성화
       'import/no-named-as-default': 'off', // TypeScript가 이미 named export를 검증하므로 비활성화
+
+      // ----- FSD -----
+      // FSD 레이어 import 규칙 강제 (예: features는 pages를 import 불가)
+      'fsd/forbidden-imports': [
+        'error',
+        {
+          ignoreImportPatterns: ['@/entities/*'],
+        },
+      ],
+
+      // 같은 레이어 내 슬라이스 간 직접 import 방지
+      'fsd/no-cross-slice-dependency': [
+        'error',
+        {
+          ignoreImportPatterns: ['@/entities/*'],
+        },
+      ],
+
+      // 슬라이스/레이어 간 상대 경로 import 금지, 별칭(@) 사용
+      // 기본적으로 같은 슬라이스 내 상대 경로는 허용 (설정 가능)
+      'fsd/no-relative-imports': 'error',
+
+      // Public API (index 파일)를 통한 import만 허용
+      'fsd/no-public-api-sidestep': ['error'],
+
+      // 비즈니스 로직 레이어에서 UI import 방지
+      'fsd/no-ui-in-business-logic': 'error',
+
+      // 전역 스토어 직접 import 금지
+      'fsd/no-global-store-imports': 'error',
+
+      // FSD 레이어 기반으로 import 순서 강제
+      'fsd/ordered-imports': 'warn',
     },
   },
 );
