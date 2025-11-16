@@ -168,7 +168,7 @@ export default defineConfig(
       'fsd/forbidden-imports': [
         'error',
         {
-          ignoreImportPatterns: ['@/entities/*'],
+          ignoreImportPatterns: ['@/entities/*', '@/shared/*'],
         },
       ],
 
@@ -176,7 +176,7 @@ export default defineConfig(
       'fsd/no-cross-slice-dependency': [
         'error',
         {
-          ignoreImportPatterns: ['@/entities/*'],
+          ignoreImportPatterns: ['@/entities/*', '@/shared/*'],
         },
       ],
 

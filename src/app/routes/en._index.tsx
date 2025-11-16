@@ -1,7 +1,7 @@
 import IndexPage from '@/pages/index/IndexPage';
 
 const Page = () => {
-  return Array.from({ length: 10 }).map((_, index) => <IndexPage key={index} />);
+  return <IndexPage />;
 };
 
 export default Page;

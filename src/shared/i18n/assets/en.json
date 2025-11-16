@@ -1,0 +1,6 @@
+{
+  "welcome": "Welcome",
+  "hello": "Hello",
+  "greeting": "Hello, {{name}}!",
+  "notFound": "Not Found"
+}

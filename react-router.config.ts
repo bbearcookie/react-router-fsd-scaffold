@@ -4,4 +4,5 @@ export default {
   appDirectory: 'src/app',
   buildDirectory: 'dist',
   ssr: false,
+  prerender: ['/', '/ko', '/en'],
 } satisfies Config;
