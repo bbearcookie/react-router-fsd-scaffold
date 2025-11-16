@@ -6,7 +6,7 @@ import { ServerRouter } from 'react-router';
 import { renderToPipeableStream } from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
 import { initI18Next } from '@/shared/i18n/lib/i18n';
-import { detectLanguage } from '@/shared/i18n/utils/language';
+import { detectLanguage } from '@/shared/i18n/util/language';
 
 export default async function handleRequest(
   request: Request,

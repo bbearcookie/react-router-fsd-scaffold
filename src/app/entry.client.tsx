@@ -8,7 +8,7 @@ import { getLanguageFromPath } from '@/shared/i18n';
 import { initI18Next } from '@/shared/i18n/lib/i18n';
 
 async function main() {
-  await initI18Next(i18n, getLanguageFromPath(window.location.pathname));
+  await initI18Next(i18n, getLanguageFromPath(window.location.pathname) || undefined);
 
   startTransition(() => {
     hydrateRoot(

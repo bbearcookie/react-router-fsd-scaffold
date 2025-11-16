@@ -1,7 +1,7 @@
 import IndexPage from '@/pages/index/IndexPage';
 
-const Page = () => {
+const Route = () => {
   return <IndexPage />;
 };
 
-export default Page;
+export default Route;

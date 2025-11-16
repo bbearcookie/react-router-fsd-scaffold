@@ -2,5 +2,7 @@
   "welcome": "ようこそ",
   "hello": "こんにちは",
   "greeting": "こんにちは、{{name}}さん!",
-  "notFound": "ページが見つかりません"
+  "notFound": "ページが見つかりません",
+  "posts": "投稿",
+  "postDetail": "投稿詳細"
 }
