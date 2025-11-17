@@ -102,6 +102,12 @@ export type FindPetsByTagsParams = {
   tags: string[];
 };
 
+export type GetPetByIdPathParameters = {
+  petId: number;
+};
+export type UpdatePetWithFormPathParameters = {
+  petId: number;
+};
 export type UpdatePetWithFormParams = {
   /**
    * Name of pet that needs to be updated
@@ -113,6 +119,12 @@ export type UpdatePetWithFormParams = {
   status?: string;
 };
 
+export type DeletePetPathParameters = {
+  petId: number;
+};
+export type UploadFilePathParameters = {
+  petId: number;
+};
 export type UploadFileParams = {
   /**
    * Additional Metadata
@@ -122,6 +134,12 @@ export type UploadFileParams = {
 
 export type GetInventory200 = { [key: string]: number };
 
+export type GetOrderByIdPathParameters = {
+  orderId: number;
+};
+export type DeleteOrderPathParameters = {
+  orderId: number;
+};
 export type LoginUserParams = {
   /**
    * The user name for login
@@ -133,6 +151,15 @@ export type LoginUserParams = {
   password?: string;
 };
 
+export type GetUserByNamePathParameters = {
+  username: string;
+};
+export type UpdateUserPathParameters = {
+  username: string;
+};
+export type DeleteUserPathParameters = {
+  username: string;
+};
 /**
  * Update an existing pet by Id.
  * @summary Update an existing pet.
@@ -179,7 +206,7 @@ export const findPetsByTags = (params: FindPetsByTagsParams) => {
  * Returns a single pet.
  * @summary Find pet by ID.
  */
-export const getPetById = (petId: number) => {
+export const getPetById = ({ petId }: GetPetByIdPathParameters) => {
   return apiClient<Pet>({ url: `/pet/${petId}`, method: 'GET' });
 };
 
@@ -187,7 +214,10 @@ export const getPetById = (petId: number) => {
  * Updates a pet resource based on the form data.
  * @summary Updates a pet in the store with form data.
  */
-export const updatePetWithForm = (petId: number, params?: UpdatePetWithFormParams) => {
+export const updatePetWithForm = (
+  { petId }: UpdatePetWithFormPathParameters,
+  params?: UpdatePetWithFormParams,
+) => {
   return apiClient<Pet>({ url: `/pet/${petId}`, method: 'POST', params });
 };
 
@@ -195,7 +225,7 @@ export const updatePetWithForm = (petId: number, params?: UpdatePetWithFormParam
  * Delete a pet.
  * @summary Deletes a pet.
  */
-export const deletePet = (petId: number) => {
+export const deletePet = ({ petId }: DeletePetPathParameters) => {
   return apiClient<void>({ url: `/pet/${petId}`, method: 'DELETE' });
 };
 
@@ -203,7 +233,11 @@ export const deletePet = (petId: number) => {
  * Upload image of the pet.
  * @summary Uploads an image.
  */
-export const uploadFile = (petId: number, uploadFileBody: Blob, params?: UploadFileParams) => {
+export const uploadFile = (
+  { petId }: UploadFilePathParameters,
+  uploadFileBody: Blob,
+  params?: UploadFileParams,
+) => {
   return apiClient<ApiResponse>({
     url: `/pet/${petId}/uploadImage`,
     method: 'POST',
@@ -238,7 +272,7 @@ export const placeOrder = (order: Order) => {
  * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
  * @summary Find purchase order by ID.
  */
-export const getOrderById = (orderId: number) => {
+export const getOrderById = ({ orderId }: GetOrderByIdPathParameters) => {
   return apiClient<Order>({ url: `/store/order/${orderId}`, method: 'GET' });
 };
 
@@ -246,7 +280,7 @@ export const getOrderById = (orderId: number) => {
  * For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
  * @summary Delete purchase order by identifier.
  */
-export const deleteOrder = (orderId: number) => {
+export const deleteOrder = ({ orderId }: DeleteOrderPathParameters) => {
   return apiClient<void>({ url: `/store/order/${orderId}`, method: 'DELETE' });
 };
 
@@ -296,7 +330,7 @@ export const logoutUser = () => {
  * Get user detail based on username.
  * @summary Get user by user name.
  */
-export const getUserByName = (username: string) => {
+export const getUserByName = ({ username }: GetUserByNamePathParameters) => {
   return apiClient<User>({ url: `/user/${username}`, method: 'GET' });
 };
 
@@ -304,7 +338,7 @@ export const getUserByName = (username: string) => {
  * This can only be done by the logged in user.
  * @summary Update user resource.
  */
-export const updateUser = (username: string, user: User) => {
+export const updateUser = ({ username }: UpdateUserPathParameters, user: User) => {
   return apiClient<void>({
     url: `/user/${username}`,
     method: 'PUT',
@@ -317,7 +351,7 @@ export const updateUser = (username: string, user: User) => {
  * This can only be done by the logged in user.
  * @summary Delete user resource.
  */
-export const deleteUser = (username: string) => {
+export const deleteUser = ({ username }: DeleteUserPathParameters) => {
   return apiClient<void>({ url: `/user/${username}`, method: 'DELETE' });
 };
 

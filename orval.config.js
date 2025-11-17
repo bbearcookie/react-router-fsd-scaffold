@@ -8,6 +8,7 @@ export default defineConfig({
       tsconfig: 'tsconfig.app.json',
       target: './src/shared/api/openapiGenerated.ts',
       override: {
+        useNamedParameters: true,
         mutator: {
           path: './src/shared/lib/apiClient.ts',
           name: 'apiClient',
