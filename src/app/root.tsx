@@ -1,5 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import { useState } from 'react';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { i18n } from '@/shared/i18n';
+import { getQueryClient } from '@/shared/lib/queryClient';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,5 +25,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function Root() {
-  return <Outlet />;
+  const [queryClient] = useState(getQueryClient);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Outlet />
+    </QueryClientProvider>
+  );
 }

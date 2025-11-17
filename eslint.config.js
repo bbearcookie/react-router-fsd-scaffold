@@ -11,6 +11,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
 import pluginPromise from 'eslint-plugin-promise';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 import configPrettier from 'eslint-config-prettier/flat';
@@ -40,6 +41,7 @@ export default defineConfig(
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
       pluginPromise.configs['flat/recommended'],
+      pluginQuery.configs['flat/recommended'],
       configPrettier,
       eslintPluginPrettierRecommended,
     ],

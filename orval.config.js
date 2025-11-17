@@ -9,7 +9,7 @@ export default defineConfig({
       target: './src/shared/api/openapiGenerated.ts',
       override: {
         mutator: {
-          path: './src/shared/api/apiClient.ts',
+          path: './src/shared/lib/apiClient.ts',
           name: 'apiClient',
         },
       },

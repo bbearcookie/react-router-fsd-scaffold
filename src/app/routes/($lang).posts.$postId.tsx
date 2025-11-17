@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router';
-import { ROUTES } from '@/shared/path/routes';
+import { ROUTES } from '@/shared/constants/routes';
 
 const Route = () => {
   const { t } = useTranslation();
