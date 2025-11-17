@@ -1,12 +1,15 @@
 import { defineConfig } from 'orval';
 
+const INPUT_PATH = 'petstore.json';
+
 export default defineConfig({
-  'api-generated': {
-    input: 'petstore.json',
+  api: {
+    input: INPUT_PATH,
     output: {
       prettier: true,
+      mock: true, // MSW 생성
+      target: './src/shared/api/generated.ts',
       tsconfig: 'tsconfig.app.json',
-      target: './src/shared/api/openapiGenerated.ts',
       override: {
         useNamedParameters: true,
         mutator: {

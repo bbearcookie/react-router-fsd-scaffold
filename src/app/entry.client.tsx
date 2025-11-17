@@ -4,11 +4,15 @@ import { hydrateRoot } from 'react-dom/client';
 import { HydratedRouter } from 'react-router/dom';
 import { I18nextProvider } from 'react-i18next';
 import './styles/index.css';
+import { setupServiceWorker } from './utils/msw.start';
 import { getLanguageFromPath } from '@/shared/i18n';
 import { initI18Next } from '@/shared/i18n/lib/i18n';
 
 async function main() {
-  await initI18Next(i18n, getLanguageFromPath(window.location.pathname) || undefined);
+  await Promise.all([
+    initI18Next(i18n, getLanguageFromPath(window.location.pathname) || undefined),
+    setupServiceWorker(),
+  ]);
 
   startTransition(() => {
     hydrateRoot(
