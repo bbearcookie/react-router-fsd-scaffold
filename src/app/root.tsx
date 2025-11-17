@@ -1,6 +1,7 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 import { useState } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import { i18n } from '@/shared/i18n';
 import { getQueryClient } from '@/shared/lib/queryClient';
 
@@ -29,7 +30,9 @@ export default function Root() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <NuqsAdapter>
+        <Outlet />
+      </NuqsAdapter>
     </QueryClientProvider>
   );
 }

@@ -1,9 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import { petQueries } from '@/shared/api/pet.queries';
+import { FindPetsByStatusStatus } from '@/shared/api/generated';
+import { QS } from '@/shared/constants/qs';
 
 const Route = () => {
-  const tags = ['tag1', 'tag2'];
-  const { data, isLoading, isError, error } = useQuery(petQueries.byTags(tags));
+  const [status, setStatus] = useQueryState(
+    QS.STATUS,
+    parseAsStringEnum(Object.values(FindPetsByStatusStatus)),
+  );
+
+  const { data, isLoading, isError, error } = useQuery(
+    petQueries.byStatus(status as FindPetsByStatusStatus),
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -19,10 +28,17 @@ const Route = () => {
 
   return (
     <div>
-      <h2>Pets by Tags</h2>
+      <h2>Pets by Status</h2>
+      <select onChange={(e) => setStatus(e.target.value as FindPetsByStatusStatus)}>
+        {Object.values(FindPetsByStatusStatus).map((status) => (
+          <option key={status} value={status}>
+            {status}
+          </option>
+        ))}
+      </select>
       <ul>
-        {data.map((pet) => (
-          <li key={pet.id}>
+        {data.map((pet, index) => (
+          <li key={index}>
             <div>
               <strong>{pet.name}</strong>
               {pet.status && <span> - Status: {pet.status}</span>}
