@@ -14,6 +14,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prettier:write": "prettier --write",
+    "test": "vitest",
     "generate:api": "orval --config orval.config.js"
   },
   "dependencies": {
@@ -22,7 +23,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "@tanstack/react-query": "^5.90.10",
     "@tanstack/react-query-devtools": "^5.90.2",
-    "es-toolkit": "^1.41.0",
+    "es-toolkit": "^1.42.0",
     "i18next": "^25.6.2",
     "i18next-resources-to-backend": "^1.2.1",
     "isbot": "^5",
@@ -65,7 +66,8 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.9"
   },
   "msw": {
     "workerDirectory": [
