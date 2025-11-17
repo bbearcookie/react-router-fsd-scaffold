@@ -6,7 +6,4 @@ import { vitePreviewHtmlPlugin } from './src/app/plugins/vitePreviewHtmlPlugin';
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), vitePreviewHtmlPlugin()],
-  build: {
-    minify: false,
-  },
 });
