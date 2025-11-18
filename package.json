@@ -17,6 +17,7 @@
     "lint:fix": "eslint --fix",
     "prettier:write": "prettier --write",
     "test": "vitest",
+    "test:e2e": "playwright test",
     "generate:api": "orval --config orval.config.js"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@faker-js/faker": "^10.1.0",
+    "@playwright/test": "^1.56.1",
     "@react-router/dev": "^7.9.6",
     "@storybook/react-vite": "^10.0.8",
     "@tanstack/eslint-plugin-query": "^5.91.2",

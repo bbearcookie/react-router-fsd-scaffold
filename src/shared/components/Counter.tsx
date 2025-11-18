@@ -18,7 +18,10 @@ const Counter = () => {
             <p className="mb-2 text-sm font-medium tracking-wider text-indigo-100 uppercase">
               Current Count
             </p>
-            <p className="text-6xl font-bold text-white drop-shadow-lg transition-all duration-300">
+            <p
+              data-testid="value"
+              className="text-6xl font-bold text-white drop-shadow-lg transition-all duration-300"
+            >
               {count}
             </p>
           </div>
@@ -26,12 +29,14 @@ const Counter = () => {
 
         <div className="flex justify-center gap-4">
           <button
+            data-testid="decrement"
             onClick={() => setCount(subtraction(count, 1))}
             className="flex-1 transform rounded-xl bg-linear-to-r from-red-500 to-pink-500 px-6 py-4 text-2xl font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-red-600 hover:to-pink-600 hover:shadow-xl active:scale-95"
           >
             -
           </button>
           <button
+            data-testid="increment"
             onClick={() => setCount(sum(count, 1))}
             className="flex-1 transform rounded-xl bg-linear-to-r from-blue-500 to-indigo-500 px-6 py-4 text-2xl font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-indigo-600 hover:shadow-xl active:scale-95"
           >

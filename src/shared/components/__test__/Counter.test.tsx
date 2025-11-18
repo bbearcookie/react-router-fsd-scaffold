@@ -5,48 +5,53 @@ import { render, screen } from '@/shared/testing-library/render';
 describe('Counter', () => {
   it('초기 렌더링 시 카운터가 0으로 표시된다', () => {
     render(<Counter />);
-    expect(screen.getByText('Counter: 0')).toBeDefined();
+    const valueElement = screen.getByTestId('value');
+    expect(valueElement).toBeDefined();
+    expect(valueElement.textContent).toBe('0');
   });
 
   it('+ 버튼을 클릭하면 카운터가 증가한다', async () => {
     const { user } = render(<Counter />);
-    const incrementButton = screen.getByRole('button', { name: '+' });
+    const incrementButton = screen.getByTestId('increment');
+    const valueElement = screen.getByTestId('value');
 
     await user.click(incrementButton);
 
-    expect(screen.getByText('Counter: 1')).toBeDefined();
+    expect(valueElement.textContent).toBe('1');
   });
 
   it('- 버튼을 클릭하면 카운터가 감소한다', async () => {
     const { user } = render(<Counter />);
-    const decrementButton = screen.getByRole('button', { name: '-' });
+    const decrementButton = screen.getByTestId('decrement');
+    const valueElement = screen.getByTestId('value');
 
     await user.click(decrementButton);
 
-    expect(screen.getByText('Counter: -1')).toBeDefined();
+    expect(valueElement.textContent).toBe('-1');
   });
 
   it('여러 번 클릭하면 카운터가 정확히 업데이트된다', async () => {
     const { user } = render(<Counter />);
-    const incrementButton = screen.getByRole('button', { name: '+' });
-    const decrementButton = screen.getByRole('button', { name: '-' });
+    const incrementButton = screen.getByTestId('increment');
+    const decrementButton = screen.getByTestId('decrement');
+    const valueElement = screen.getByTestId('value');
 
     await user.click(incrementButton);
     await user.click(incrementButton);
-    expect(screen.getByText('Counter: 2')).toBeDefined();
+    expect(valueElement.textContent).toBe('2');
 
     await user.click(decrementButton);
-    expect(screen.getByText('Counter: 1')).toBeDefined();
+    expect(valueElement.textContent).toBe('1');
 
     await user.click(decrementButton);
     await user.click(decrementButton);
-    expect(screen.getByText('Counter: -1')).toBeDefined();
+    expect(valueElement.textContent).toBe('-1');
   });
 
   it('버튼들이 올바르게 렌더링된다', () => {
     render(<Counter />);
-    const incrementButton = screen.getByRole('button', { name: '+' });
-    const decrementButton = screen.getByRole('button', { name: '-' });
+    const incrementButton = screen.getByTestId('increment');
+    const decrementButton = screen.getByTestId('decrement');
 
     expect(incrementButton).toBeDefined();
     expect(decrementButton).toBeDefined();

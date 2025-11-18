@@ -7,6 +7,7 @@ export default mergeConfig(
     test: {
       environment: 'jsdom',
       setupFiles: ['./src/shared/testing-library/setupTests.ts'],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/*.e2e.{ts,tsx,js,jsx}', '**/tests/**'],
     },
   }),
 );
