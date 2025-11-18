@@ -1,7 +1,6 @@
 # React Router FSD Scaffold
 
 React Router 7 기반의 Feature-Sliced Design(FSD) 아키텍처를 적용한 프론트엔드 프로젝트입니다.
-test commit
 
 ## 목차
 
