@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .react-router/
+
+*storybook.log
+storybook-static

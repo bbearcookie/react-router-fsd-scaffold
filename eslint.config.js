@@ -1,3 +1,5 @@
+import storybook from 'eslint-plugin-storybook';
+
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 import globals from 'globals';
@@ -22,6 +24,7 @@ export default defineConfig(
     '**/dist/**',
     '**/.react-router/**',
     '**/storybook-static/**',
+    '**/.storybook/**',
     '**/pnpm-lock.yaml',
     '**/*.config.{js,ts}',
     '**/*.d.ts',
@@ -29,6 +32,7 @@ export default defineConfig(
     '**/locales/**',
   ]),
   {
+    ignores: ['!.storybook'],
     files: ['**/*.{ts,tsx,js,jsx}'],
     extends: [
       js.configs.recommended,
@@ -40,6 +44,7 @@ export default defineConfig(
       importPlugin.flatConfigs.typescript,
       pluginPromise.configs['flat/recommended'],
       pluginQuery.configs['flat/recommended'],
+      ...storybook.configs['flat/recommended'],
       configPrettier,
       eslintPluginPrettierRecommended,
     ],

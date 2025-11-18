@@ -4,10 +4,13 @@ import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { vitePreviewHtmlPlugin } from './src/app/plugins/vitePreviewHtmlPlugin';
 
+const isStorybook = process.argv.some((arg) => arg.includes('storybook'));
+const isVitest = process.env.VITEST === 'true';
+
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    !process.env.VITEST && reactRouter(),
+    !isStorybook && !isVitest && reactRouter(),
     tsconfigPaths(),
     vitePreviewHtmlPlugin(),
   ],
