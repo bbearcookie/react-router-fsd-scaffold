@@ -6,7 +6,6 @@ import tseslint from 'typescript-eslint';
 
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
@@ -36,7 +35,6 @@ export default defineConfig(
       tseslint.configs.recommended,
       react.configs.flat.recommended,
       reactHooks.configs.flat['recommended-latest'],
-      reactRefresh.configs.vite,
       jsxA11y.flatConfigs.recommended,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
@@ -80,7 +78,6 @@ export default defineConfig(
     rules: {
       // ----- React -----
       'react/react-in-jsx-scope': 'off', // import React from 'react' 가 필요한지의 여부
-      'react-refresh/only-export-components': 'warn', // 리액트 컴포넌트가 포함된 파일에서 반드시 컴포넌트만 export 해야만 하는지의 여부
       'react/jsx-curly-brace-presence': [
         // JSX에서 중괄호 사용을 제어
         'error',
