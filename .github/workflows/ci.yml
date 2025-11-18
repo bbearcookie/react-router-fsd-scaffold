@@ -27,5 +27,9 @@ jobs:
       - name: 의존성 설치
         run: pnpm install --frozen-lockfile
 
+      - name: Playwright 브라우저 설치
+        if: matrix.command == 'test:e2e'
+        run: pnpm exec playwright install --with-deps
+
       - name: Matrix로 정의된 커맨드 실행
         run: pnpm ${{ matrix.command }}
