@@ -327,22 +327,22 @@ pnpm build:storybook
 ```
 react-router-fsd-scaffold/
 ├── src/
-│   ├── app/              # 앱 전역에서 동작하는 환경 설정 등
-│   │   ├── routes/       # 파일 시스템 기반 라우트 (react-router)
-│   │   └── styles/       # 전역 스타일
-│   ├── pages/            # 웹/앱의 화면(screen) 또는 액티비티(activity)
-│   ├── widgets/          # 독립적으로 동작하는 큰 블록
-│   ├── features/         # 사용자가 앱에서 수행하는 주요 기능 (비즈니스 로직)
-│   ├── entities/         # 프로젝트에서 다루는 핵심 데이터 개념
-│   └── shared/           # 모든 레이어에서 활용할 공통 코드
-│       ├── api/          # API 관련 함수
-│       ├── components/   # 공통 컴포넌트
-│       ├── constants/    # 상수
-│       ├── i18n/         # 다국어 설정
-│       └── testing-library/        # 단위/통합 테스트 관련 설정
-│       └── utils/        # 유틸리티 함수
-├── public/               # 정적 파일
-├── .storybook/           # Storybook 설정
+│   ├── app/                   # 앱 전역에서 동작하는 환경 설정 등
+│   │   ├── routes/            # 파일 시스템 기반 라우트 (react-router)
+│   │   └── styles/            # 전역 스타일
+│   ├── pages/                 # 웹/앱의 화면(screen) 또는 액티비티(activity)
+│   ├── widgets/               # 독립적으로 동작하는 큰 블록
+│   ├── features/              # 사용자가 앱에서 수행하는 주요 기능 (비즈니스 로직)
+│   ├── entities/              # 프로젝트에서 다루는 핵심 데이터 개념
+│   └── shared/                # 모든 레이어에서 활용할 공통 코드
+│       ├── api/               # API 관련 함수
+│       ├── components/        # 공통 컴포넌트
+│       ├── constants/         # 상수
+│       ├── i18n/              # 다국어 설정
+│       ├── testing-library/   # 단위/통합 테스트 관련 설정
+│       └── utils/             # 유틸리티 함수
+├── public/                    # 정적 파일
+└── .storybook/                # Storybook 설정
 ```
 
 ## 문제 해결
