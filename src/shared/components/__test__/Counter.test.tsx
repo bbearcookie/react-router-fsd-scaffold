@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Counter from './Counter';
+import Counter from '../Counter';
 import { render, screen } from '@/shared/testing-library/render';
 
 describe('Counter', () => {
