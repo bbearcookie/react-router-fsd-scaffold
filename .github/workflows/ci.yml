@@ -27,6 +27,15 @@ jobs:
       - name: 의존성 설치
         run: pnpm install --frozen-lockfile
 
+      - name: Playwright 브라우저 캐시
+        if: matrix.command == 'test:e2e'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
       - name: Playwright 브라우저 설치
         if: matrix.command == 'test:e2e'
         run: pnpm exec playwright install --with-deps
