@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import Counter from '@/shared/components/Counter';
+import { Counter } from '@/entities/counter';
 
 const IndexPage = () => {
   const { t } = useTranslation();

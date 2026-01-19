@@ -1,4 +1,4 @@
-import { getLanguageFromPath } from '../i18n';
+import { getLanguageFromPath } from '../../i18n';
 import { mapValues } from 'es-toolkit/object';
 
 /** 라우팅 경로 정의 */

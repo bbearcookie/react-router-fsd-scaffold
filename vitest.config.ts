@@ -6,7 +6,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
-      setupFiles: ['./src/shared/testing-library/setupTests.ts'],
+      setupFiles: ['./src/shared/testing-library/config/vitest.setup.ts'],
       exclude: ['**/node_modules/**', '**/dist/**', '**/*.e2e.{ts,tsx,js,jsx}', '**/tests/**'],
     },
   }),

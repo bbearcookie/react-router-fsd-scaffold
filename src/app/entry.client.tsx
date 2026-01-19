@@ -3,10 +3,9 @@ import React, { startTransition } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { HydratedRouter } from 'react-router/dom';
 import { I18nextProvider } from 'react-i18next';
-import './styles/index.css';
-import { setupServiceWorker } from './utils/msw.start';
-import { getLanguageFromPath } from '@/shared/i18n';
-import { initI18Next } from '@/shared/i18n/lib/i18n';
+import './style/index.css';
+import { setupServiceWorker } from './lib/serviceWorker';
+import { getLanguageFromPath, initI18Next } from '@/shared/i18n';
 
 async function main() {
   await Promise.all([

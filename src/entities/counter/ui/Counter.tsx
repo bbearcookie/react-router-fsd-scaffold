@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { sum, subtraction } from '../utils/calculator';
+import { sum, subtraction } from '../util/calculator';
 
 const Counter = () => {
   const [count, setCount] = useState(0);

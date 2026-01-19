@@ -4,7 +4,7 @@ import {
   findPetsByStatus,
   type FindPetsByStatusStatus,
   findPetsByTags,
-} from './generated';
+} from '../generated';
 
 const petQueries = {
   ALL: () => ['pets'],

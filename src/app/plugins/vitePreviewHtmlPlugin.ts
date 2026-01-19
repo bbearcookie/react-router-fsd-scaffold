@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
-// 프리뷰 서버에서 경로별 HTML 파일을 서빙하는 플러그인
+/** 프리뷰 서버에서 경로별 HTML 파일을 서빙하는 플러그인 */
 const vitePreviewHtmlPlugin = (): Plugin => {
   return {
     name: 'vite-preview-html-plugin',

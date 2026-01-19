@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { HttpResponse, http } from 'msw';
 import type { RequestHandlerOptions } from 'msw';
 
-import { apiClient } from '../lib/apiClient';
+import { apiClient } from './apiClient';
 /**
  * Order Status
  */

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import Counter from '../Counter';
-import { render, screen } from '@/shared/testing-library/render';
+import Counter from './Counter';
+import { render, screen } from '@/shared/testing-library/util/render';
 
 describe('Counter', () => {
   it('초기 렌더링 시 카운터가 0으로 표시된다', () => {

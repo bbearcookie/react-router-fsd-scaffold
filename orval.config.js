@@ -13,7 +13,7 @@ export default defineConfig({
       override: {
         useNamedParameters: true,
         mutator: {
-          path: './src/shared/lib/apiClient.ts',
+          path: './src/shared/api/apiClient.ts',
           name: 'apiClient',
         },
       },

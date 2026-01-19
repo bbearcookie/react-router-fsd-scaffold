@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
-import { petQueries } from '@/shared/api/pet.queries';
+import { petQueries } from '@/shared/api/pet/queries';
 import { FindPetsByStatusStatus } from '@/shared/api/generated';
-import { QS } from '@/shared/constants/qs';
 
 const Route = () => {
   const [status, setStatus] = useQueryState(
-    QS.STATUS,
+    'status',
     parseAsStringEnum(Object.values(FindPetsByStatusStatus)),
   );
 

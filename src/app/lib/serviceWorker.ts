@@ -1,5 +1,5 @@
 const setupMockServiceWorker = async () => {
-  const { worker } = await import('@/shared/lib/msw.browser');
+  const { worker } = await import('@/shared/msw/lib/msw.browser');
 
   return worker.start({
     onUnhandledRequest: 'bypass',

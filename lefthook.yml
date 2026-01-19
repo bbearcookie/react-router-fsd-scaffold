@@ -6,8 +6,8 @@ pre-commit:
     lint:
       stage_fixed: true
       glob: '*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'
-      run: pnpm lint:fix {staged_files}
+      run: pnpm eslint --fix {staged_files}
     prettier:
       stage_fixed: true
       glob: '*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'
-      run: pnpm prettier:write {staged_files}
+      run: pnpm prettier --write {staged_files}

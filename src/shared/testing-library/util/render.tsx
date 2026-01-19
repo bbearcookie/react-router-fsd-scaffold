@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 import { render, type RenderOptions } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import userEvent from '@testing-library/user-event';
-import { getQueryClient } from '../lib/queryClient';
+import { getQueryClient } from '../../tanstack-query/lib/queryClient';
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
