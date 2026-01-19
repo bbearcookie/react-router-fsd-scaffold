@@ -4,11 +4,11 @@ import { petQueries } from './queries';
 
 const petMutations = {
   updatePetWithForm: (args: {
-    id: Parameters<typeof updatePetWithForm>[0]['petId'];
+    id: Parameters<typeof updatePetWithForm>[0];
     params: Parameters<typeof updatePetWithForm>[1];
   }) =>
     mutationOptions({
-      mutationFn: () => updatePetWithForm({ petId: args.id }, args.params),
+      mutationFn: () => updatePetWithForm(args.id, args.params),
       meta: {
         invalidates: [petQueries.ALL()],
       },
