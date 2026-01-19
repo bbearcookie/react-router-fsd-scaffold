@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Counter } from '@/entities/counter';
 
-const IndexPage = () => {
+const Page = () => {
   const { t } = useTranslation();
 
   return (
@@ -12,4 +12,4 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage;
+export default Page;

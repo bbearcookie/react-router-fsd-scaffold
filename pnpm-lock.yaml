@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@react-router/fs-routes':
-        specifier: ^7.12.0
-        version: 7.12.0(@react-router/dev@7.12.0(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.3)
       '@react-router/node':
         specifier: ^7.12.0
         version: 7.12.0(react-router@7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
@@ -1130,16 +1127,6 @@ packages:
       typescript:
         optional: true
       wrangler:
-        optional: true
-
-  '@react-router/fs-routes@7.12.0':
-    resolution: {integrity: sha512-otlOIrIsJsqY5ACfgMsIkHPq1rfuvdwxBGWZRSscU+HK+BcHAz8ZDq+wYDGonOLcU6wUn33+G+/1skznIV1L8A==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      '@react-router/dev': ^7.12.0
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
         optional: true
 
   '@react-router/node@7.12.0':
@@ -5362,13 +5349,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  '@react-router/fs-routes@7.12.0(@react-router/dev@7.12.0(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.3)':
-    dependencies:
-      '@react-router/dev': 7.12.0(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(yaml@2.8.1)
-      minimatch: 9.0.5
-    optionalDependencies:
-      typescript: 5.9.3
 
   '@react-router/node@7.12.0(react-router@7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)':
     dependencies:

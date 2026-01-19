@@ -1,26 +1,14 @@
-import { getLanguageFromPath } from '../../i18n';
-import { mapValues } from 'es-toolkit/object';
+import { LANG, wrapWithLanguage } from '../../i18n';
 
 /** 라우팅 경로 정의 */
 const BASE_ROUTES = {
-  HOME: () => '/',
-  POSTS: () => '/posts',
-  POST_DETAIL: (postId: string) => `/posts/${postId}`,
+  HOME: () => `/${LANG}` as const,
+  POSTS: {
+    LIST: () => `/${LANG}/posts` as const,
+    DETAIL: (postId: string) => `/${LANG}/posts/${postId}` as const,
+  } as const,
 } as const;
-
-const withLanguage = (path: string) => {
-  const language = getLanguageFromPath(window.location.pathname);
-  return language ? `/${language}${path}` : path;
-};
-
-const wrapWithLanguage = <T extends Record<string, (...args: any[]) => string>>(routes: T) =>
-  mapValues(
-    routes,
-    (fn) =>
-      (...args: any[]) =>
-        withLanguage(fn(...args)),
-  ) as { [K in keyof T]: (...args: Parameters<T[K]>) => string };
 
 const ROUTES = wrapWithLanguage(BASE_ROUTES);
 
-export { ROUTES };
+export { BASE_ROUTES, ROUTES };

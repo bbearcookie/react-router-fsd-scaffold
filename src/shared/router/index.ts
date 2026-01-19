@@ -1,1 +1,1 @@
-export { ROUTES } from './config/routes';
+export { BASE_ROUTES, ROUTES } from './config/routes';

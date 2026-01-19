@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router';
-import { ROUTES } from '@/shared/router/config/routes';
+import { ROUTES } from '@/shared/router';
 
 const Route = () => {
   const { t } = useTranslation();
@@ -10,7 +10,7 @@ const Route = () => {
     <div>
       <h2>{t('postDetail')}</h2>
       <span>postId: {postId}</span>
-      <Link to={ROUTES.POSTS()}>{t('backToPosts')}</Link>
+      <Link to={ROUTES.POSTS.LIST()}>{t('backToPosts')}</Link>
     </div>
   );
 };
