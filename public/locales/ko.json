@@ -3,6 +3,7 @@
   "hello": "안녕하세요",
   "greeting": "안녕하세요, {{name}}님!",
   "notFound": "페이지를 찾을 수 없습니다",
+  "pets": "펫",
   "posts": "게시물",
   "postDetail": "게시물 상세"
 }

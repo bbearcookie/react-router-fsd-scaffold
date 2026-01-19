@@ -3,6 +3,10 @@ import { LANG, wrapWithLanguage } from '../../i18n';
 /** 라우팅 경로 정의 */
 const BASE_ROUTES = {
   HOME: () => `/${LANG}` as const,
+  PETS: {
+    LIST: () => `/${LANG}/pets` as const,
+    DETAIL: (petId: string) => `/${LANG}/pets/${petId}` as const,
+  } as const,
   POSTS: {
     LIST: () => `/${LANG}/posts` as const,
     DETAIL: (postId: string) => `/${LANG}/posts/${postId}` as const,

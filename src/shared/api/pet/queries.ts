@@ -15,7 +15,7 @@ const petQueries = {
   byId: (petId: string) =>
     queryOptions({
       queryKey: petQueries.ID(petId),
-      queryFn: () => getPetById({ petId: Number(petId) }),
+      queryFn: () => getPetById(Number(petId)),
     }),
 
   byStatus: (status: FindPetsByStatusStatus) =>

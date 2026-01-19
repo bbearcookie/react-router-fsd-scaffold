@@ -3,6 +3,7 @@
   "hello": "Hello",
   "greeting": "Hello, {{name}}!",
   "notFound": "Not Found",
+  "pets": "Pets",
   "posts": "Posts",
   "postDetail": "Post Detail"
 }

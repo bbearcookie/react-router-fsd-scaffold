@@ -766,7 +766,7 @@ export const getUpdatePetMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.put(
-    '*/pet',
+    'https://petstore.swagger.io/v2/pet',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -790,7 +790,7 @@ export const getAddPetMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/pet',
+    'https://petstore.swagger.io/v2/pet',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -814,7 +814,7 @@ export const getFindPetsByStatusMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/pet/findByStatus',
+    'https://petstore.swagger.io/v2/pet/findByStatus',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -838,7 +838,7 @@ export const getFindPetsByTagsMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/pet/findByTags',
+    'https://petstore.swagger.io/v2/pet/findByTags',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -862,7 +862,7 @@ export const getGetPetByIdMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/pet/:petId',
+    'https://petstore.swagger.io/v2/pet/:petId',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -886,7 +886,7 @@ export const getUpdatePetWithFormMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/pet/:petId',
+    'https://petstore.swagger.io/v2/pet/:petId',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -910,7 +910,7 @@ export const getDeletePetMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.delete(
-    '*/pet/:petId',
+    'https://petstore.swagger.io/v2/pet/:petId',
     async (info) => {
       if (typeof overrideResponse === 'function') {
         await overrideResponse(info);
@@ -930,7 +930,7 @@ export const getUploadFileMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/pet/:petId/uploadImage',
+    'https://petstore.swagger.io/v2/pet/:petId/uploadImage',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -956,7 +956,7 @@ export const getGetInventoryMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/store/inventory',
+    'https://petstore.swagger.io/v2/store/inventory',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -980,7 +980,7 @@ export const getPlaceOrderMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/store/order',
+    'https://petstore.swagger.io/v2/store/order',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1004,7 +1004,7 @@ export const getGetOrderByIdMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/store/order/:orderId',
+    'https://petstore.swagger.io/v2/store/order/:orderId',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1028,7 +1028,7 @@ export const getDeleteOrderMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.delete(
-    '*/store/order/:orderId',
+    'https://petstore.swagger.io/v2/store/order/:orderId',
     async (info) => {
       if (typeof overrideResponse === 'function') {
         await overrideResponse(info);
@@ -1046,7 +1046,7 @@ export const getCreateUserMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/user',
+    'https://petstore.swagger.io/v2/user',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1070,7 +1070,7 @@ export const getCreateUsersWithListInputMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
-    '*/user/createWithList',
+    'https://petstore.swagger.io/v2/user/createWithList',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1094,7 +1094,7 @@ export const getLoginUserMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/user/login',
+    'https://petstore.swagger.io/v2/user/login',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1118,7 +1118,7 @@ export const getLogoutUserMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/user/logout',
+    'https://petstore.swagger.io/v2/user/logout',
     async (info) => {
       if (typeof overrideResponse === 'function') {
         await overrideResponse(info);
@@ -1136,7 +1136,7 @@ export const getGetUserByNameMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
-    '*/user/:username',
+    'https://petstore.swagger.io/v2/user/:username',
     async (info) => {
       return new HttpResponse(
         JSON.stringify(
@@ -1160,7 +1160,7 @@ export const getUpdateUserMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.put(
-    '*/user/:username',
+    'https://petstore.swagger.io/v2/user/:username',
     async (info) => {
       if (typeof overrideResponse === 'function') {
         await overrideResponse(info);
@@ -1178,7 +1178,7 @@ export const getDeleteUserMockHandler = (
   options?: RequestHandlerOptions,
 ) => {
   return http.delete(
-    '*/user/:username',
+    'https://petstore.swagger.io/v2/user/:username',
     async (info) => {
       if (typeof overrideResponse === 'function') {
         await overrideResponse(info);

@@ -3,6 +3,7 @@
   "hello": "こんにちは",
   "greeting": "こんにちは、{{name}}さん!",
   "notFound": "ページが見つかりません",
+  "pets": "ペット",
   "posts": "投稿",
   "postDetail": "投稿詳細"
 }
