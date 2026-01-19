@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@10.22.0",
   "scripts": {
-    "postinstall": "lefthook install",
+    "postinstall": "node -e \"process.env.CI || require('child_process').execSync('lefthook install', {stdio: 'inherit'})\"",
     "dev": "react-router dev",
     "dev:msw": "cross-env VITE_MSW=true react-router dev",
     "storybook": "storybook dev -p 6006",

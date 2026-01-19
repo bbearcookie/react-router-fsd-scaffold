@@ -1,0 +1,9 @@
+services:
+  spa:
+    build:
+      context: ../..
+      dockerfile: deployment/spa/Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    container_name: react-router-spa
