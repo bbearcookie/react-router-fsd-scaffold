@@ -1,28 +1,28 @@
-import i18n from 'i18next';
-import React, { startTransition } from 'react';
+import { createInstance } from 'i18next';
 import { hydrateRoot } from 'react-dom/client';
 import { HydratedRouter } from 'react-router/dom';
 import { I18nextProvider } from 'react-i18next';
 import './style/index.css';
 import { setupServiceWorker } from './lib/serviceWorker';
-import { getLanguageFromPath, initI18Next } from '@/shared/i18n';
+import React from 'react';
+import { getLanguageFromPath, setupI18n } from '@/shared/i18n';
 
 async function main() {
+  const i18n = createInstance();
+
   await Promise.all([
-    initI18Next(i18n, getLanguageFromPath(window.location.pathname) || undefined),
+    setupI18n(i18n, getLanguageFromPath(window.location.pathname) || undefined),
     setupServiceWorker(),
   ]);
 
-  startTransition(() => {
-    hydrateRoot(
-      document,
-      <React.StrictMode>
-        <I18nextProvider i18n={i18n}>
-          <HydratedRouter />
-        </I18nextProvider>
-      </React.StrictMode>,
-    );
-  });
+  hydrateRoot(
+    document,
+    <React.StrictMode>
+      <I18nextProvider i18n={i18n}>
+        <HydratedRouter />
+      </I18nextProvider>
+    </React.StrictMode>,
+  );
 }
 
 main().catch((error) => console.error(error));

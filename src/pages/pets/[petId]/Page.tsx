@@ -4,7 +4,7 @@ import { petQueries } from '@/shared/api/pet/queries';
 import { petMutations } from '@/shared/api/pet/mutations';
 import { ROUTES } from '@/shared/router';
 
-const Route = () => {
+const Page = () => {
   const params = useParams();
   const navigate = useNavigate();
   const petId = params.petId as string;
@@ -126,4 +126,4 @@ const Route = () => {
   );
 };
 
-export default Route;
+export default Page;

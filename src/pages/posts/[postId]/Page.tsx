@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router';
 import { ROUTES } from '@/shared/router';
 
-const Route = () => {
+const Page = () => {
   const { t } = useTranslation();
   const { postId } = useParams();
 
@@ -15,4 +15,4 @@ const Route = () => {
   );
 };
 
-export default Route;
+export default Page;

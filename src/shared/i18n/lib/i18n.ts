@@ -3,9 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import { fallbackLanguage, supportedLanguages, type SupportedLanguage } from '../config/languages';
 import resourcesToBackend from 'i18next-resources-to-backend';
 
-const isServer = typeof window === 'undefined';
-
-const initI18Next = async (i18next: typeof i18n, language?: SupportedLanguage) => {
+const setupI18n = async (i18next: typeof i18n, language?: SupportedLanguage) => {
   const options: InitOptions = {
     supportedLngs: supportedLanguages,
     fallbackLng: fallbackLanguage,
@@ -16,7 +14,10 @@ const initI18Next = async (i18next: typeof i18n, language?: SupportedLanguage) =
     .use(initReactI18next)
     .use(
       resourcesToBackend(async (language: string) => {
-        if (isServer) {
+        const isServer = typeof window === 'undefined';
+        const isTestRunner = process.env.NODE_ENV === 'test';
+
+        if (isServer || isTestRunner) {
           const fs = await import('node:fs/promises');
           const path = await import('node:path');
           const filePath = path.join(process.cwd(), 'public', 'locales', `${language}.json`);
@@ -31,4 +32,4 @@ const initI18Next = async (i18next: typeof i18n, language?: SupportedLanguage) =
     .init(options);
 };
 
-export { i18n, initI18Next };
+export { i18n, setupI18n };

@@ -1,4 +1,4 @@
-export { i18n, initI18Next } from './lib/i18n';
+export { i18n, setupI18n } from './lib/i18n';
 export {
   LANG,
   supportedLanguages,

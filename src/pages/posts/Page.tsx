@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { ROUTES } from '@/shared/router';
 
-const Route = () => {
+const Page = () => {
   const { t } = useTranslation();
 
   return (
@@ -13,4 +13,4 @@ const Route = () => {
   );
 };
 
-export default Route;
+export default Page;

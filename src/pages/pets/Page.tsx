@@ -5,7 +5,7 @@ import { petQueries } from '@/shared/api/pet/queries';
 import { FindPetsByStatusStatus } from '@/shared/api/generated';
 import { ROUTES } from '@/shared/router';
 
-const Route = () => {
+const Page = () => {
   const [status, setStatus] = useQueryState(
     'status',
     parseAsStringEnum(Object.values(FindPetsByStatusStatus)),
@@ -102,4 +102,4 @@ const Route = () => {
   );
 };
 
-export default Route;
+export default Page;
