@@ -5,5 +5,6 @@
   "notFound": "ページが見つかりません",
   "pets": "ペット",
   "posts": "投稿",
-  "postDetail": "投稿詳細"
+  "postDetail": "投稿詳細",
+  "backToPosts": "投稿一覧に戻る"
 }
