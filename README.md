@@ -17,7 +17,7 @@ React Router 7 기반의 Feature-Sliced Design(FSD) 아키텍처를 적용한 �
 
 이 프로젝트는 다음과 같은 특징을 가지고 있습니다:
 
-- **React Router 7**: 파일 시스템 기반 라우팅
+- **React Router 7**: UI·데이터(loader/action)·에러·메타·SSR를 통합 관리하는 라우팅 프레임워크
 - **Feature-Sliced Design**: 확장 가능한 아키텍처 패턴
 - **TypeScript**: 타입 안전성
 - **Tailwind CSS**: 유틸리티 기반 스타일링
@@ -29,17 +29,17 @@ React Router 7 기반의 Feature-Sliced Design(FSD) 아키텍처를 적용한 �
 
 ### 핵심 버전
 
-- **Node.js**: `24.11.1` (.nvmrc에 명시)
+- **Node.js**: `24.13.0` (.nvmrc에 명시)
 - **pnpm**: `10.22.0` (package.json의 packageManager 필드에 명시)
-- **React**: `19.2.0`
+- **React**: `19.2.3`
 - **TypeScript**: `5.9.3`
 
 ### 주요 라이브러리
 
-- **React Router**: `7.9.6`
-- **TanStack Query**: `5.90.10`
-- **Tailwind CSS**: `4.1.17`
-- **Zod**: `4.1.12`
+- **React Router**: `7.12.0`
+- **TanStack Query**: `5.90.19`
+- **Tailwind CSS**: `4.1.18`
+- **Zod**: `4.3.5`
 
 ## 개발 환경 설정
 
@@ -57,7 +57,7 @@ nvm install
 nvm use
 
 # 설치 확인
-node --version  # v24.11.1 출력되어야 함
+node --version  # v24.13.0 출력되어야 함
 ```
 
 ### 2. Corepack 활성화
@@ -235,22 +235,9 @@ pnpm storybook
 pnpm build:storybook
 ```
 
-### 테스트 작성 규칙
-
-각 컴포넌트는 `__test__` 디렉토리에 세 가지 파일을 가집니다:
-
-```
-Component/
-  ├── Component.tsx
-  └── __test__/
-      ├── Component.test.tsx    # Vitest 단위 테스트
-      ├── Component.e2e.tsx     # Playwright E2E 테스트
-      └── Component.stories.tsx # Storybook 스토리
-```
-
 ## 빌드 및 배포
 
-### 개발 빌드
+### 빌드
 
 ```bash
 # 타입 생성 + TypeScript 컴파일 + 프로덕션 빌드
@@ -266,10 +253,10 @@ pnpm build
 pnpm preview
 ```
 
-### 프로덕션 SSR 실행 (SSR Mode)
+### 프로덕션 서버 실행 (Node.js)
 
 ```bash
-# Node.js 서버로 실행
+# Node.js로 빌드된 앱 서빙
 pnpm start
 ```
 
@@ -281,6 +268,23 @@ pnpm build:storybook
 
 # storybook-static/ 디렉토리에 생성됩니다
 ```
+
+### Docker로 SPA 배포 (deployment/spa)
+
+Nginx로 SPA를 서빙하는 Docker 이미지를 빌드해 배포할 수 있습니다.
+
+```bash
+# 프로젝트 루트에서 아래 세 커맨드 중 하나를 선택하여 실행 (DEPLOYMENT_ENV에 따라 .env.dev / .env.stg / .env.prod 사용)
+- DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build
+- DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build
+- DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build
+
+# http://localhost:8080 에서 확인
+```
+
+- **Dockerfile**: Node 24.13.0-alpine 빌드 후 Nginx 1.27-alpine으로 정적 파일 서빙
+- **nginx.conf**: SPA 폴백(`__spa-fallback.html`), 다국어·정적 자원 캐시 설정
+- `DEPLOYMENT_ENV=dev|stg|prod` 에 맞는 `.env.dev`, `.env.stg`, `.env.prod` 파일이 필요합니다.
 
 ## 주요 명령어
 
@@ -314,7 +318,7 @@ pnpm build:storybook
 | `pnpm build` | 프로덕션 빌드 |
 | `pnpm build:storybook` | Storybook 정적 빌드 |
 | `pnpm preview` | 빌드 결과물 미리보기 |
-| `pnpm start` | 프로덕션 서버 실행 (SSR 전용) |
+| `pnpm start` | 프로덕션 서버 실행 (Node.js) |
 
 ### 기타
 
@@ -327,21 +331,27 @@ pnpm build:storybook
 ```
 react-router-fsd-scaffold/
 ├── src/
-│   ├── app/                   # 앱 전역에서 동작하는 환경 설정 등
-│   │   ├── routes/            # 파일 시스템 기반 라우트 (react-router)
-│   │   └── styles/            # 전역 스타일
+│   ├── app/                   # 앱 전역 (entry, root, 라우트, 스타일 등)
+│   │   ├── routes.ts          # 라우트 설정 (react-router)
+│   │   ├── root.tsx
+│   │   ├── entry.client.tsx
+│   │   ├── entry.server.tsx
+│   │   ├── style/             # 전역 스타일
+│   │   ├── lib/
+│   │   └── plugin/
 │   ├── pages/                 # 웹/앱의 화면(screen) 또는 액티비티(activity)
 │   ├── widgets/               # 독립적으로 동작하는 큰 블록
 │   ├── features/              # 사용자가 앱에서 수행하는 주요 기능 (비즈니스 로직)
 │   ├── entities/              # 프로젝트에서 다루는 핵심 데이터 개념
 │   └── shared/                # 모든 레이어에서 활용할 공통 코드
-│       ├── api/               # API 관련 함수
-│       ├── components/        # 공통 컴포넌트
-│       ├── constants/         # 상수
+│       ├── api/               # API 관련·생성된 클라이언트
 │       ├── i18n/              # 다국어 설정
-│       ├── testing-library/   # 단위/통합 테스트 관련 설정
-│       └── utils/             # 유틸리티 함수
-├── public/                    # 정적 파일
+│       ├── msw/               # MSW 모킹
+│       ├── router/            # 라우트 상수·설정
+│       ├── tanstack-query/    # React Query 설정
+│       └── testing-library/   # 단위/통합 테스트 관련 설정
+├── public/                    # 정적 파일 (locales, mockServiceWorker 등)
+├── deployment/spa/            # SPA Docker·Nginx 배포
 └── .storybook/                # Storybook 설정
 ```
 
