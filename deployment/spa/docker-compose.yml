@@ -1,9 +1,12 @@
 services:
   spa:
+    image: react-router-fsd-scaffold:${DEPLOYMENT_ENV:-latest}
     build:
       context: ../..
       dockerfile: deployment/spa/Dockerfile
+      args:
+        DEPLOYMENT_ENV: ${DEPLOYMENT_ENV}
     ports:
       - "8080:80"
     restart: unless-stopped
-    container_name: react-router-spa
+    container_name: react-router-spa-${DEPLOYMENT_ENV}
