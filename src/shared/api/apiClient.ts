@@ -1,25 +1,17 @@
-import ky, { type Options as KyOptions } from 'ky';
+import axios, { type AxiosRequestConfig } from 'axios';
 
-const kyInstance = ky.create({
-  prefixUrl: import.meta.env.VITE_API_URL,
-});
+const apiClient = async <T>(config: AxiosRequestConfig): Promise<T> => {
+  const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      ...config.headers,
+    },
+  });
 
-export const apiClient = async <T>(config: {
-  url: string;
-  method: KyOptions['method'];
-  params?: any;
-  data?: any;
-  headers?: Record<string, string>;
-  signal?: AbortSignal;
-}): Promise<T> => {
-  // ky의 prefixUrl 사용 시 URL이 '/'로 시작하면 안 되므로 제거
-  const url = config.url.replace(/^\//, '');
-
-  return kyInstance(url, {
-    method: config.method,
-    json: config.data,
-    searchParams: config.params,
-    headers: config.headers,
-    signal: config.signal,
-  }).json<T>();
+  return (await api(config)).data;
 };
+
+export { apiClient };

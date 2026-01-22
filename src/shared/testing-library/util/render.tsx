@@ -3,9 +3,9 @@ import { BrowserRouter } from 'react-router';
 import { render, type RenderOptions } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import userEvent from '@testing-library/user-event';
-import { getQueryClient } from '../../tanstack-query/lib/queryClient';
 import { createInstance, type i18n as I18nInstance } from 'i18next';
 import { I18nextProvider } from 'react-i18next';
+import { getQueryClient } from '@/shared/tanstack-query';
 import { setupI18n } from '@/shared/i18n';
 
 const createTestI18n = async () => {

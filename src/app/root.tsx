@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import { useTranslation } from 'react-i18next';
-import { getQueryClient } from '@/shared/tanstack-query/lib/queryClient';
+import { getQueryClient } from '@/shared/tanstack-query';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
