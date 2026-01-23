@@ -2,6 +2,7 @@
 FROM node:24.13.0-alpine AS builder
 
 ARG DEPLOYMENT_ENV
+ENV NODE_ENV=production
 ENV CI=true
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
@@ -25,10 +26,20 @@ RUN if [ "$DEPLOYMENT_ENV" = "dev" ]; then \
 RUN pnpm build
 
 # 프로덕션 스테이지  -----------------------------------------------
-FROM nginx:1.27-alpine AS production
+FROM node:24.13.0-alpine AS production
 
-COPY deployment/spa/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist/client /usr/share/nginx/html
+ENV NODE_ENV=production
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
+
+WORKDIR /app
+
+# builder 스테이지에서 필요한 파일 복사
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+
+EXPOSE 3000
+
+CMD ["pnpm", "start"]

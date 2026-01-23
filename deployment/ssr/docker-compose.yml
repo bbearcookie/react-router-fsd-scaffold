@@ -1,0 +1,12 @@
+services:
+  ssr:
+    image: react-router-fsd-scaffold-ssr:${DEPLOYMENT_ENV:-latest}
+    build:
+      context: ../..
+      dockerfile: deployment/ssr/Dockerfile
+      args:
+        DEPLOYMENT_ENV: ${DEPLOYMENT_ENV}
+    ports:
+      - "8080:3000"
+    restart: unless-stopped
+    container_name: react-router-ssr-${DEPLOYMENT_ENV}

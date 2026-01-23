@@ -11,7 +11,9 @@ React Router 7 기반의 Feature-Sliced Design(FSD) 아키텍처를 적용한 �
 - [코드 품질 관리](#코드-품질-관리)
 - [테스팅](#테스팅)
 - [빌드 및 배포](#빌드-및-배포)
+- [Docker 배포](#docker-배포)
 - [주요 명령어](#주요-명령어)
+- [프로젝트 구조](#프로젝트-구조)
 
 ## 프로젝트 개요
 
@@ -237,7 +239,7 @@ pnpm build:storybook
 
 ## 빌드 및 배포
 
-### 빌드
+### 로컬 빌드
 
 ```bash
 # 타입 생성 + TypeScript 컴파일 + 프로덕션 빌드
@@ -246,17 +248,13 @@ pnpm build
 # 빌드 결과물은 dist/ 디렉토리에 생성됩니다
 ```
 
-### 프로덕션 SPA 실행 (SPA Mode)
+### 로컬 실행
 
 ```bash
-# 빌드된 애플리케이션 미리보기
+# SPA 모드로 빌드된 애플리케이션 미리보기
 pnpm preview
-```
 
-### 프로덕션 서버 실행 (Node.js)
-
-```bash
-# Node.js로 빌드된 앱 서빙
+# Node.js SSR 서버로 빌드된 앱 실행
 pnpm start
 ```
 
@@ -269,22 +267,89 @@ pnpm build:storybook
 # storybook-static/ 디렉토리에 생성됩니다
 ```
 
-### Docker로 SPA 배포 (deployment/spa)
+---
 
-Nginx로 SPA를 서빙하는 Docker 이미지를 빌드해 배포할 수 있습니다.
+## Docker 배포
+
+프로젝트는 SPA와 SSR 두 가지 배포 방식을 지원합니다.
+
+### 환경별 설정
+
+배포 시 `DEPLOYMENT_ENV` 환경 변수를 통해 환경을 선택합니다:
+- `dev`: 개발 환경 (`.env.dev` 사용)
+- `stg`: 스테이징 환경 (`.env.stg` 사용)
+- `prod`: 프로덕션 환경 (`.env.prod` 사용)
+
+각 환경에 맞는 `.env.dev`, `.env.stg`, `.env.prod` 파일을 프로젝트 루트에 준비해야 합니다.
+
+### SPA 배포 (deployment/spa)
+
+**특징:**
+- Nginx 1.27-alpine 기반 정적 파일 서빙
+- SPA 폴백 라우팅 (`__spa-fallback.html`)
+- 다국어 파일 및 정적 자원 캐시 최적화
+
+**실행 방법:**
 
 ```bash
-# 프로젝트 루트에서 아래 세 커맨드 중 하나를 선택하여 실행 (DEPLOYMENT_ENV에 따라 .env.dev / .env.stg / .env.prod 사용)
-- DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build
-- DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build
-- DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build
+# 프로젝트 루트에서 실행
 
-# http://localhost:8080 에서 확인
+# 개발 환경
+DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build
+
+# 스테이징 환경
+DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build
+
+# 프로덕션 환경
+DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build
 ```
 
-- **Dockerfile**: Node 24.13.0-alpine 빌드 후 Nginx 1.27-alpine으로 정적 파일 서빙
-- **nginx.conf**: SPA 폴백(`__spa-fallback.html`), 다국어·정적 자원 캐시 설정
-- `DEPLOYMENT_ENV=dev|stg|prod` 에 맞는 `.env.dev`, `.env.stg`, `.env.prod` 파일이 필요합니다.
+**접속:** `http://localhost:8080`
+
+**컨테이너 중지:**
+```bash
+docker-compose -f deployment/spa/docker-compose.yml down
+```
+
+### SSR 배포 (deployment/ssr)
+
+**특징:**
+- Node.js 24.13.0-alpine 기반 서버 사이드 렌더링
+- React Router SSR 지원
+- 동적 콘텐츠 및 SEO 최적화
+
+**실행 방법:**
+
+```bash
+# 프로젝트 루트에서 실행
+
+# 개발 환경
+DEPLOYMENT_ENV=dev docker-compose -f deployment/ssr/docker-compose.yml up --build
+
+# 스테이징 환경
+DEPLOYMENT_ENV=stg docker-compose -f deployment/ssr/docker-compose.yml up --build
+
+# 프로덕션 환경
+DEPLOYMENT_ENV=prod docker-compose -f deployment/ssr/docker-compose.yml up --build
+```
+
+**접속:** `http://localhost:8080`
+
+**컨테이너 중지:**
+```bash
+docker-compose -f deployment/ssr/docker-compose.yml down
+```
+
+### 배포 방식 선택 가이드
+
+| 구분 | SPA | SSR |
+|------|-----|-----|
+| **렌더링** | 클라이언트 사이드 | 서버 사이드 + 하이드레이션 |
+| **SEO** | 제한적 (크롤러 지원 필요) | 우수 (초기 HTML 제공) |
+| **초기 로딩** | 느림 (JS 다운로드 후 렌더링) | 빠름 (HTML 즉시 표시) |
+| **서버 리소스** | 낮음 (정적 파일만) | 중간 (Node.js 런타임 필요) |
+| **캐싱** | 매우 쉬움 (CDN) | 복잡함 (동적 콘텐츠) |
+| **추천 사용 사례** | 관리자 페이지, 대시보드, SaaS | 마케팅 사이트, 블로그, 커머스 |
 
 ## 주요 명령어
 
@@ -317,8 +382,19 @@ Nginx로 SPA를 서빙하는 Docker 이미지를 빌드해 배포할 수 있습�
 |--------|------|
 | `pnpm build` | 프로덕션 빌드 |
 | `pnpm build:storybook` | Storybook 정적 빌드 |
-| `pnpm preview` | 빌드 결과물 미리보기 |
-| `pnpm start` | 프로덕션 서버 실행 (Node.js) |
+| `pnpm preview` | 빌드 결과물 미리보기 (SPA) |
+| `pnpm start` | 프로덕션 서버 실행 (SSR) |
+
+### Docker 배포
+
+| 명령어 | 설명 |
+|--------|------|
+| `DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 개발 환경 배포 |
+| `DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 스테이징 환경 배포 |
+| `DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 프로덕션 환경 배포 |
+| `DEPLOYMENT_ENV=dev docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 개발 환경 배포 |
+| `DEPLOYMENT_ENV=stg docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 스테이징 환경 배포 |
+| `DEPLOYMENT_ENV=prod docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 프로덕션 환경 배포 |
 
 ### 기타
 
@@ -351,7 +427,14 @@ react-router-fsd-scaffold/
 │       ├── tanstack-query/    # React Query 설정
 │       └── testing-library/   # 단위/통합 테스트 관련 설정
 ├── public/                    # 정적 파일 (locales, mockServiceWorker 등)
-├── deployment/spa/            # SPA Docker·Nginx 배포
+├── deployment/
+│   ├── spa/                   # SPA 배포 (Nginx + Docker)
+│   │   ├── Dockerfile
+│   │   ├── docker-compose.yml
+│   │   └── nginx.conf
+│   └── ssr/                   # SSR 배포 (Node.js + Docker)
+│       ├── Dockerfile
+│       └── docker-compose.yml
 └── .storybook/                # Storybook 설정
 ```
 
