@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { petQueries } from '@/shared/api/pet/queries';
 import { petMutations } from '@/shared/api/pet/mutations';
 import { ROUTES } from '@/shared/router';
+import { ensureAxiosError, overrideMutationError } from '@/shared/tanstack-query';
 
 const Page = () => {
   const params = useParams();
@@ -10,7 +11,6 @@ const Page = () => {
   const petId = params.petId as string;
 
   const { data: pet, isLoading, isError, error } = useQuery(petQueries.byId(petId));
-
   const deleteMutation = useMutation(petMutations.deletePet);
 
   const handleDelete = () => {
@@ -18,6 +18,20 @@ const Page = () => {
       deleteMutation.mutate(Number(petId), {
         onSuccess: () => {
           navigate(ROUTES.PETS.LIST());
+        },
+        onError: (_error) => {
+          const { error } = ensureAxiosError(_error);
+
+          overrideMutationError(error, {
+            payloads: [
+              {
+                type: 'alert',
+                errorCode: 1000,
+                title: '[오버라이딩]',
+                description: '1000번 오류에 대한 설명',
+              },
+            ],
+          });
         },
       });
     }

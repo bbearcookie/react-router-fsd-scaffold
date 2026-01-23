@@ -1,4 +1,5 @@
 import { isServer, matchQuery, QueryClient, type QueryClientConfig } from '@tanstack/react-query';
+import { handleGlobalMutationError } from '../util/handleGlobalMutationError';
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -11,15 +12,19 @@ const queryClientConfig: QueryClientConfig = {
       onSuccess: (_data, _variables, _context, mutation) => {
         const queryClient = mutation.client;
 
-        queryClient.removeQueries({
-          predicate: (query) =>
-            mutation.meta?.removes?.some((queryKey) => matchQuery({ queryKey }, query)) ?? true,
-        });
-
         queryClient.invalidateQueries({
           predicate: (query) =>
-            mutation.meta?.invalidates?.some((queryKey) => matchQuery({ queryKey }, query)) ?? true,
+            mutation.meta?.invalidates?.some((queryKey) => matchQuery({ queryKey }, query)) ??
+            false,
         });
+
+        queryClient.removeQueries({
+          predicate: (query) =>
+            mutation.meta?.removes?.some((queryKey) => matchQuery({ queryKey }, query)) ?? false,
+        });
+      },
+      onError: (error) => {
+        handleGlobalMutationError(error);
       },
     },
   },
