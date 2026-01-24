@@ -9,9 +9,10 @@ const isVitest = process.env.VITEST === 'true';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const basename = env.VITE_BASE_NAME === '/' ? '/' : `${env.VITE_BASE_NAME}/`;
 
   return {
-    base: `${env.VITE_BASE_NAME}/`,
+    base: basename,
     plugins: [
       tailwindcss(),
       !isStorybook && !isVitest && reactRouter(),

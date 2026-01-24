@@ -33,12 +33,14 @@ RUN if [ "$ENVIRONMENT" = "dev" ]; then \
 # 정적 애셋을 도메인의 서브 경로 배포용 prefix 경로로 이동
 RUN pnpm build && \
   basename=$(echo "${VITE_BASE_NAME}" | sed 's/^\///') && \
-  mkdir -p "dist/client/${basename}" && \
-  cp "dist/client/${SPA_FALLBACK}" "dist/client/${basename}/" && \
-  find dist/client -maxdepth 1 -mindepth 1 \
-    ! -name "${basename}" \
-    ! -name "${SPA_FALLBACK}" \
-    -exec mv {} "dist/client/${basename}/" \;
+  if [ -n "${basename}" ]; then \
+    mkdir -p "dist/client/${basename}" && \
+    cp "dist/client/${SPA_FALLBACK}" "dist/client/${basename}/" && \
+    find dist/client -maxdepth 1 -mindepth 1 \
+      ! -name "${basename}" \
+      ! -name "${SPA_FALLBACK}" \
+      -exec mv {} "dist/client/${basename}/" \; \
+  ; fi
 
 # 서버 스테이지  -----------------------------------------------
 FROM nginx:1.27-alpine AS server

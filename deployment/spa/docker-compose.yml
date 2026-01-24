@@ -8,7 +8,7 @@ services:
         # 배포 환경 (ex: dev, stg, prod)
         ENVIRONMENT: ${ENVIRONMENT}
         # 도메인의 서브 경로 배포용 prefix (ex: /base-name)
-        VITE_BASE_NAME: /base-name
+        VITE_BASE_NAME: /
         # React Router prerender 설정에 따라 변경
         #   - prerender에 '/' 포함: __spa-fallback.html
         #   - prerender에 '/' 미포함: index.html
