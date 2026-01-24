@@ -2,12 +2,14 @@
 FROM node:24.13.0-alpine AS builder
 
 ARG ENVIRONMENT
+ARG VITE_BASE_NAME
 
 # 환경 변수 설정
 ENV \
+  NODE_ENV=production \
   # CI 환경임을 나타내는 변수 (lefthook 생략 등)
   CI=true \
-  NODE_ENV=production
+  VITE_BASE_NAME=${VITE_BASE_NAME}
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
 WORKDIR /app
@@ -32,9 +34,12 @@ RUN pnpm build
 # 서버 스테이지  -----------------------------------------------
 FROM node:24.13.0-alpine AS server
 
+ARG VITE_BASE_NAME
+
 # 환경 변수 설정
 ENV \
-  NODE_ENV=production
+  NODE_ENV=production \
+  VITE_BASE_NAME=${VITE_BASE_NAME}
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
 

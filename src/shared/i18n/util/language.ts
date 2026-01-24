@@ -8,9 +8,19 @@ import {
 
 const isServer = typeof window === 'undefined';
 
+const basename = isServer
+  ? process.env.VITE_BASE_NAME
+  : import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** 맨 앞의 basename을 제거한 경로를 반환합니다. */
+const getPathWithoutBasename = (pathname: string) =>
+  basename && basename !== '/' ? pathname.replace(basename, '') : pathname;
+
 /** URL 경로에서 언어를 추출합니다. 없으면 fallbackLanguage를 반환합니다. */
 const getLanguageFromPath = (pathname: string): SupportedLanguage | null => {
-  const language = pathname.split('/')[1];
+  const path = getPathWithoutBasename(pathname);
+  const language = path.split('/')[1];
+
   return supportedLanguages.includes(language as SupportedLanguage)
     ? (language as SupportedLanguage)
     : null;
@@ -19,12 +29,18 @@ const getLanguageFromPath = (pathname: string): SupportedLanguage | null => {
 /** 현재 경로의 언어를 새로운 언어로 변경한 경로를 반환합니다. */
 const getChangedLanguagePath = (currentPath: string, newLanguage: SupportedLanguage) => {
   const currentLanguage = getLanguageFromPath(currentPath);
+  let newPath: string;
 
+  // basename 제거 후 언어 변경
+  const pathWithoutBase = getPathWithoutBasename(currentPath);
   if (currentLanguage) {
-    return currentPath.replace(`/${currentLanguage}`, `/${newLanguage}`);
+    newPath = pathWithoutBase.replace(`/${currentLanguage}`, `/${newLanguage}`);
   } else {
-    return `/${newLanguage}${currentPath}`;
+    newPath = `/${newLanguage}${pathWithoutBase}`;
   }
+
+  // basename 다시 붙여서 반환
+  return basename && basename !== '/' ? `${basename}${newPath}` : newPath;
 };
 
 /** 요청 URL에서 언어를 추출합니다. */
