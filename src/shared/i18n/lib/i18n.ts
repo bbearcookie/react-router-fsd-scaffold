@@ -24,7 +24,7 @@ const setupI18n = async (i18next: typeof i18n, language?: SupportedLanguage) => 
           const fileContent = await fs.readFile(filePath, 'utf-8');
           return JSON.parse(fileContent);
         } else {
-          const response = await fetch(`/locales/${language}.json`);
+          const response = await fetch(`${import.meta.env.BASE_URL}locales/${language}.json`);
           return response.json();
         }
       }),

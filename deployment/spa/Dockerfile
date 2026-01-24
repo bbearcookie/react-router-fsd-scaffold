@@ -2,7 +2,15 @@
 FROM node:24.13.0-alpine AS builder
 
 ARG ENVIRONMENT
-ENV CI=true
+ARG VITE_BASE_NAME
+ARG SPA_FALLBACK
+
+# 환경 변수 설정
+ENV \
+  # CI 환경임을 나타내는 변수 (lefthook 생략 등)
+  CI=true \
+  VITE_BASE_NAME=${VITE_BASE_NAME} \
+  SPA_FALLBACK=${SPA_FALLBACK}
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
 WORKDIR /app
@@ -22,13 +30,30 @@ RUN if [ "$ENVIRONMENT" = "dev" ]; then \
       cp .env.prod .env.production; \
     fi
 
-RUN pnpm build
+# 정적 애셋을 도메인의 서브 경로 배포용 prefix 경로로 이동
+RUN pnpm build && \
+  basename=$(echo "${VITE_BASE_NAME}" | sed 's/^\///') && \
+  mkdir -p "dist/client/${basename}" && \
+  cp "dist/client/${SPA_FALLBACK}" "dist/client/${basename}/" && \
+  find dist/client -maxdepth 1 -mindepth 1 \
+    ! -name "${basename}" \
+    ! -name "${SPA_FALLBACK}" \
+    -exec mv {} "dist/client/${basename}/" \;
 
-# 프로덕션 스테이지  -----------------------------------------------
-FROM nginx:1.27-alpine AS production
+# 서버 스테이지  -----------------------------------------------
+FROM nginx:1.27-alpine AS server
 
-COPY deployment/spa/nginx.conf /etc/nginx/conf.d/default.conf
+ARG VITE_BASE_NAME
+ARG SPA_FALLBACK
+
+# 환경 변수 설정
+ENV \
+  VITE_BASE_NAME=${VITE_BASE_NAME} \
+  SPA_FALLBACK=${SPA_FALLBACK}
+
+COPY deployment/spa/nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=builder /app/dist/client /usr/share/nginx/html
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# nginx 이미지의 기본 entrypoint가 /etc/nginx/templates/*.template 파일을 자동으로 envsubst 처리

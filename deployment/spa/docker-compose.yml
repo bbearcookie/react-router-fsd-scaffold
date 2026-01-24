@@ -1,12 +1,20 @@
 services:
   spa:
-    image: react-router-fsd-scaffold:${ENVIRONMENT:-latest}
+    image: react-router-fsd-scaffold:${ENVIRONMENT}
     build:
       context: ../..
       dockerfile: deployment/spa/Dockerfile
       args:
+        # 배포 환경 (ex: dev, stg, prod)
         ENVIRONMENT: ${ENVIRONMENT}
+        # 도메인의 서브 경로 배포용 prefix (ex: /base-name)
+        VITE_BASE_NAME: /base-name
+        # React Router prerender 설정에 따라 변경
+        #   - prerender에 '/' 포함: __spa-fallback.html
+        #   - prerender에 '/' 미포함: index.html
+        # https://reactrouter.com/how-to/pre-rendering#pre-rendering-with-a-spa-fallback
+        SPA_FALLBACK: __spa-fallback.html
     ports:
-      - "8080:80"
+      - '8080:80'
     restart: unless-stopped
     container_name: react-router-spa-${ENVIRONMENT}
