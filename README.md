@@ -359,7 +359,6 @@ basename은 애플리케이션이 도메인의 서브 경로에 배포될 때 �
 
 **설정 위치:**
 - `.env` 파일
-- `react-router.config.ts` 파일
 - `docker-compose.yml` 파일
 
 **변경 방법:**
@@ -372,6 +371,16 @@ VITE_BASE_NAME=/
 
 # 서브 경로에 배포하는 경우 (예: example.com/my-app/)
 VITE_BASE_NAME=/my-app
+```
+
+2. Docker 배포 시 `docker-compose.yml`의 `build.args`에서 `VITE_BASE_NAME`을 동일한 값으로 설정합니다:
+
+```yaml
+# deployment/spa/docker-compose.yml 또는 deployment/ssr/docker-compose.yml
+build:
+  args:
+    VITE_BASE_NAME: /          # 루트 경로
+    # VITE_BASE_NAME: /my-app  # 서브 경로
 ```
 
 #### 2. Prerender 경로 변경
