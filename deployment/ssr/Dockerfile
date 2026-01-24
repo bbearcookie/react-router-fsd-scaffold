@@ -1,7 +1,7 @@
 # 빌드 스테이지 ----------------------------------------------------
 FROM node:24.13.0-alpine AS builder
 
-ARG DEPLOYMENT_ENV
+ARG ENVIRONMENT
 ENV NODE_ENV=production
 ENV CI=true
 
@@ -15,11 +15,11 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lo
 COPY . .
 
 # 환경별 .env 파일을 .env.production으로 복사
-RUN if [ "$DEPLOYMENT_ENV" = "dev" ]; then \
+RUN if [ "$ENVIRONMENT" = "dev" ]; then \
       cp .env.dev .env.production; \
-    elif [ "$DEPLOYMENT_ENV" = "stg" ]; then \
+    elif [ "$ENVIRONMENT" = "stg" ]; then \
       cp .env.stg .env.production; \
-    elif [ "$DEPLOYMENT_ENV" = "prod" ]; then \
+    elif [ "$ENVIRONMENT" = "prod" ]; then \
       cp .env.prod .env.production; \
     fi
 

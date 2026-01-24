@@ -275,7 +275,7 @@ pnpm build:storybook
 
 ### 환경별 설정
 
-배포 시 `DEPLOYMENT_ENV` 환경 변수를 통해 환경을 선택합니다:
+배포 시 `ENVIRONMENT` 환경 변수를 통해 환경을 선택합니다:
 - `dev`: 개발 환경 (`.env.dev` 사용)
 - `stg`: 스테이징 환경 (`.env.stg` 사용)
 - `prod`: 프로덕션 환경 (`.env.prod` 사용)
@@ -295,13 +295,13 @@ pnpm build:storybook
 # 프로젝트 루트에서 실행
 
 # 개발 환경
-DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build
+ENVIRONMENT=dev docker-compose -f deployment/spa/docker-compose.yml up --build
 
 # 스테이징 환경
-DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build
+ENVIRONMENT=stg docker-compose -f deployment/spa/docker-compose.yml up --build
 
 # 프로덕션 환경
-DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build
+ENVIRONMENT=prod docker-compose -f deployment/spa/docker-compose.yml up --build
 ```
 
 **접속:** `http://localhost:8080`
@@ -324,13 +324,13 @@ docker-compose -f deployment/spa/docker-compose.yml down
 # 프로젝트 루트에서 실행
 
 # 개발 환경
-DEPLOYMENT_ENV=dev docker-compose -f deployment/ssr/docker-compose.yml up --build
+ENVIRONMENT=dev docker-compose -f deployment/ssr/docker-compose.yml up --build
 
 # 스테이징 환경
-DEPLOYMENT_ENV=stg docker-compose -f deployment/ssr/docker-compose.yml up --build
+ENVIRONMENT=stg docker-compose -f deployment/ssr/docker-compose.yml up --build
 
 # 프로덕션 환경
-DEPLOYMENT_ENV=prod docker-compose -f deployment/ssr/docker-compose.yml up --build
+ENVIRONMENT=prod docker-compose -f deployment/ssr/docker-compose.yml up --build
 ```
 
 **접속:** `http://localhost:8080`
@@ -389,12 +389,12 @@ docker-compose -f deployment/ssr/docker-compose.yml down
 
 | 명령어 | 설명 |
 |--------|------|
-| `DEPLOYMENT_ENV=dev docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 개발 환경 배포 |
-| `DEPLOYMENT_ENV=stg docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 스테이징 환경 배포 |
-| `DEPLOYMENT_ENV=prod docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 프로덕션 환경 배포 |
-| `DEPLOYMENT_ENV=dev docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 개발 환경 배포 |
-| `DEPLOYMENT_ENV=stg docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 스테이징 환경 배포 |
-| `DEPLOYMENT_ENV=prod docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 프로덕션 환경 배포 |
+| `ENVIRONMENT=dev docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 개발 환경 배포 |
+| `ENVIRONMENT=stg docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 스테이징 환경 배포 |
+| `ENVIRONMENT=prod docker-compose -f deployment/spa/docker-compose.yml up --build` | SPA 프로덕션 환경 배포 |
+| `ENVIRONMENT=dev docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 개발 환경 배포 |
+| `ENVIRONMENT=stg docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 스테이징 환경 배포 |
+| `ENVIRONMENT=prod docker-compose -f deployment/ssr/docker-compose.yml up --build` | SSR 프로덕션 환경 배포 |
 
 ### 기타
 
