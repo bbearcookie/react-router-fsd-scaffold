@@ -2,8 +2,12 @@
 FROM node:24.13.0-alpine AS builder
 
 ARG ENVIRONMENT
-ENV NODE_ENV=production
-ENV CI=true
+
+# 환경 변수 설정
+ENV \
+  # CI 환경임을 나타내는 변수 (lefthook 생략 등)
+  CI=true \
+  NODE_ENV=production
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
 WORKDIR /app
@@ -25,10 +29,12 @@ RUN if [ "$ENVIRONMENT" = "dev" ]; then \
 
 RUN pnpm build
 
-# 프로덕션 스테이지  -----------------------------------------------
-FROM node:24.13.0-alpine AS production
+# 서버 스테이지  -----------------------------------------------
+FROM node:24.13.0-alpine AS server
 
-ENV NODE_ENV=production
+# 환경 변수 설정
+ENV \
+  NODE_ENV=production
 
 RUN corepack enable && corepack prepare pnpm@10.22.0 --activate
 
