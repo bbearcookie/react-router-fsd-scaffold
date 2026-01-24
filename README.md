@@ -351,6 +351,84 @@ docker-compose -f deployment/ssr/docker-compose.yml down
 | **캐싱** | 매우 쉬움 (CDN) | 복잡함 (동적 콘텐츠) |
 | **추천 사용 사례** | 관리자 페이지, 대시보드, SaaS | 마케팅 사이트, 블로그, 커머스 |
 
+### 배포 설정 변경 방법
+
+#### 1. Basename 변경
+
+basename은 애플리케이션이 도메인의 서브 경로에 배포될 때 사용하는 prefix입니다.
+
+**설정 위치:**
+- `.env` 파일
+- `react-router.config.ts` 파일
+- `docker-compose.yml` 파일
+
+**변경 방법:**
+
+1. `.env` 파일에서 `VITE_BASE_NAME` 환경 변수를 수정합니다:
+
+```bash
+# 루트 경로에 배포하는 경우 (예: example.com/)
+VITE_BASE_NAME=/
+
+# 서브 경로에 배포하는 경우 (예: example.com/my-app/)
+VITE_BASE_NAME=/my-app
+```
+
+#### 2. Prerender 경로 변경
+
+prerender는 빌드 시점에 HTML을 미리 생성할 경로 목록입니다. SSR이 비활성화된 경우에도 SEO를 위해 특정 경로를 정적으로 생성할 수 있습니다.
+
+**설정 위치:**
+- `react-router.config.ts` 파일
+- `deployment/spa/docker-compose.yml` 파일 (SPA 배포 시)
+
+**변경 방법:**
+
+1. `react-router.config.ts`에서 `prerender` 배열을 수정합니다:
+
+```tsx
+// 기본 설정 (루트, 한국어, 영어)
+prerender: ['/', '/ko', '/en']
+
+// 추가 경로 포함
+prerender: ['/', '/ko', '/en', '/ja', '/about', '/products']
+
+// 빈 배열로 설정하여 prerender 비활성화
+prerender: []
+```
+
+2. **SPA 배포 시**, `deployment/spa/docker-compose.yml`에서 `SPA_FALLBACK` 설정을 변경합니다:
+
+```12:16:deployment/spa/docker-compose.yml
+        # React Router prerender 설정에 따라 변경
+        #   - prerender에 '/' 포함: __spa-fallback.html
+        #   - prerender에 '/' 미포함: index.html
+        # https://reactrouter.com/how-to/pre-rendering#pre-rendering-with-a-spa-fallback
+        SPA_FALLBACK: __spa-fallback.html
+```
+
+**주의사항:**
+- prerender는 `ssr: false` 모드에서 유용합니다 (SPA 배포 시)
+- 동적 라우트(예: `/posts/:id`)는 prerender 목록에 구체적인 ID를 명시해야 합니다
+- prerender 경로가 많을수록 빌드 시간이 증가합니다
+- **중요**: `prerender` 배열에 `'/'` 경로가 포함되어 있으면 `SPA_FALLBACK`을 `__spa-fallback.html`로 설정해야 하고, `'/'`가 없으면 `index.html`로 설정해야 합니다. 이 설정이 맞지 않으면 라우팅이 정상적으로 동작하지 않을 수 있습니다
+
+#### 3. SSR 모드 전환
+
+`react-router.config.ts`에서 `ssr` 값을 변경하여 SSR 모드를 켜거나 끌 수 있습니다:
+
+```typescript
+// SPA 모드 (클라이언트 사이드 렌더링)
+ssr: false
+
+// SSR 모드 (서버 사이드 렌더링)
+ssr: true
+```
+
+**SSR 모드 변경 시 주의사항:**
+- `ssr: true`로 변경 시 `deployment/ssr/` Docker 설정을 사용해야 합니다
+- `ssr: false`로 변경 시 `deployment/spa/` Docker 설정을 사용해야 합니다
+
 ## 주요 명령어
 
 ### 개발
